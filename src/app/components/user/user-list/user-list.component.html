@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-info">
+    <div class="navbar-brand">User List</div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <a class="btn bg-warning mr-3" role="button" href="{{ROUTES.DASHBOARD_ROUTE}}">Back To Project Dashboard</a>
+            <a class="btn bg-warning mr-3" role="button" href="{{ROUTES.ADD_USER_ROUTE}}">Add New User</a>
+        </form>
+    </div>
+</nav>
+<div class="m-3">
+    <div class="row">
+        <a href="{{ROUTES.EDIT_USER_ROUTE.replace(':userId',user.id)}}" class="col-sm-4 col-md-3 mb-3"
+            *ngFor="let user of (users$ | async)">
+            <div class="card text-dark">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.name}}</h5>
+                    <p class="card-text">{{user.email}}</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="(hasError$ | async)">
+        Error loading user list
+    </div>
+</div>

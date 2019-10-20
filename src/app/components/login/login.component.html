@@ -1,0 +1,28 @@
+<form class="form-signin" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Software Project Planning & Management</h1>
+    </div>
+    <div class="form-label-group">
+        <input formControlName="email" type="email" id="inputEmail" class="form-control" placeholder="Email address"
+            required autofocus>
+        <label for="inputEmail">Email address</label>
+    </div>
+
+    <div class="form-label-group">
+        <input formControlName="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
+            required>
+        <label for="inputPassword">Password</label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <br />
+    <div class="alert alert-danger" role="alert" *ngIf="message && message.length>0">
+        {{message}}
+    </div>
+    <!-- <div class="alert alert-primary" role="alert">
+        <div class="text-muted text-center">Boggs, Dave</div>
+        <div class="text-muted text-center">Boyd, Kristie</div>
+        <div class="text-muted text-center">Chekuri, Sathya</div>
+        <div class="text-muted text-center">Gifford, Daniel</div>
+        <div class="text-muted text-center">Hawaou, Ganama</div>
+    </div> -->
+</form>
