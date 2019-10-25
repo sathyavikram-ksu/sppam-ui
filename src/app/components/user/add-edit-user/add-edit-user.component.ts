@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import * as ROUTES from '../../../helpers/routes';
 import { SpinnerService } from '../../../services/spinner.service';
 import { UserService } from '../../../services/user.service';
@@ -14,6 +15,7 @@ import { User } from '../../../models/user';
 })
 export class AddEditUserComponent implements OnInit {
   ROUTES = ROUTES;
+  faArrowCircleLeft = faArrowCircleLeft;
   userId: string;
   message = '';
 

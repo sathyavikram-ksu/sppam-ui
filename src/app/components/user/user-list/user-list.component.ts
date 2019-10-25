@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, mapTo, finalize } from 'rxjs/operators';
+import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
 import * as ROUTES from '../../../helpers/routes';
@@ -13,6 +14,7 @@ import { SpinnerService } from '../../../services/spinner.service';
 })
 export class UserListComponent implements OnInit {
   ROUTES = ROUTES;
+  faArrowCircleLeft = faArrowCircleLeft;
   constructor(private userService: UserService, private spinnerService: SpinnerService) { }
   users$: Observable<User[]>;
   hasError$: Observable<boolean>;

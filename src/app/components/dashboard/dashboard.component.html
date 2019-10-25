@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-info">
-    <div class="navbar-brand">Project dashboard</div>
+    <div class="navbar-brand">Project Dashboard</div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
         aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -15,3 +15,20 @@
         </form>
     </div>
 </nav>
+<div class="m-3">
+    <div class="row">
+        <div class="col-sm-4 col-md-3 mb-3" *ngFor="let project of (projects$ | async)">
+            <div class="card">
+                <h5 class="card-header">{{project.name}}</h5>
+                <div class="card-body">
+                    <p class="card-text">{{project.description}}</p>
+                    <a href="{{ROUTES.PROJECT_DETAILS_ROUTE.replace(':projectId',project.id)}}"
+                        class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="(hasError$ | async)">
+        Error loading project list
+    </div>
+</div>

@@ -9,7 +9,6 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UserService {
-
   constructor(private http: HttpClient) { }
 
   async signIn(email: string, password: string) {

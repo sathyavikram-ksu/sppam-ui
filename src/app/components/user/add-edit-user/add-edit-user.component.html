@@ -1,18 +1,8 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-info">
-    <div class="navbar-brand">User Details</div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <a class="btn bg-warning mr-3" role="button" href="{{ROUTES.USER_LIST_ROUTE}}">Back To Users List</a>
-        </form>
-    </div>
+    <a class="btn bg-warning mr-3" href="{{ROUTES.USER_LIST_ROUTE}}">
+        <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+    </a>
+    <div class="navbar-brand">Edit User Details</div>
 </nav>
 <div class="row m-2">
     <div class="col-md-6 offset-md-3">

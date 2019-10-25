@@ -1,4 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-info">
+    <a class="btn bg-warning mr-3" href="{{ROUTES.DASHBOARD_ROUTE}}">
+        <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+    </a>
     <div class="navbar-brand">User List</div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
         aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,22 +13,25 @@
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <a class="btn bg-warning mr-3" role="button" href="{{ROUTES.DASHBOARD_ROUTE}}">Back To Project Dashboard</a>
             <a class="btn bg-warning mr-3" role="button" href="{{ROUTES.ADD_USER_ROUTE}}">Add New User</a>
         </form>
     </div>
 </nav>
+<!-- <ol class="breadcrumb app-breadcrumb">
+    <li class="breadcrumb-item"><a class="text-info" href="{{ROUTES.DASHBOARD_ROUTE}}">Project Dashboard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">User List</li>
+</ol> -->
 <div class="m-3">
     <div class="row">
-        <a href="{{ROUTES.EDIT_USER_ROUTE.replace(':userId',user.id)}}" class="col-sm-4 col-md-3 mb-3"
-            *ngFor="let user of (users$ | async)">
-            <div class="card text-dark">
+        <div class="col-sm-4 col-md-3 mb-3" *ngFor="let user of (users$ | async)">
+            <div class="card">
+                <h5 class="card-header">{{user.name}}</h5>
                 <div class="card-body">
-                    <h5 class="card-title">{{user.name}}</h5>
                     <p class="card-text">{{user.email}}</p>
+                    <a href="{{ROUTES.EDIT_USER_ROUTE.replace(':userId',user.id)}}" class="stretched-link"></a>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
     <div class="alert alert-danger" role="alert" *ngIf="(hasError$ | async)">
         Error loading user list
