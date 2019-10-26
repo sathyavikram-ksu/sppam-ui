@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: ROUTES.EDIT_USER_ROUTE, component: AddEditUserComponent },
 
   { path: ROUTES.ADD_PROJECT_ROUTE, component: AddEditProjectComponent },
+  { path: ROUTES.EDIT_PROJECT_ROUTE, component: AddEditProjectComponent },
   { path: ROUTES.PROJECT_DETAILS_ROUTE, component: ProjectDetailsComponent },
 ];
 

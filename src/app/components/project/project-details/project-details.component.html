@@ -2,79 +2,10 @@
     <a class="btn bg-warning mr-3" href="{{ROUTES.DASHBOARD_ROUTE}}">
         <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
     </a>
-    <div class="navbar-brand">Project Name - {{project.name}}</div>
+    <div class="navbar-brand">Project Details - {{project?.name}}</div>
 </nav>
-<div class="accordion">
-    <div class="card">
-        <div class="card-header" id="headingOne">
-            <h2 class="mb-0">
-                <button class="btn btn-link text-info" type="button" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    <b>Project Details</b>
-                </button>
-                <button class="btn btn-link text-success" type="button">
-                    <fa-icon [icon]="faEdit"></fa-icon> Edit
-                </button>
-            </h2>
-        </div>
-
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
-            <div class="card-body">
-                <div>
-                    <span class="badge badge-secondary">Description:</span>
-                    {{project.description}}
-                </div>
-                <div>
-                    <span class="badge badge-secondary">Project Manager:</span>
-                    {{project?.owner?.name}}
-                </div>
-                <div>
-                    <span class="badge badge-secondary">Team Members:</span>
-                    <span *ngFor="let teamMember of project?.teamMembers">
-                        {{teamMember?.name}},
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header" id="headingTwo">
-            <h2 class="mb-0">
-                <button class="btn btn-link text-info" type="button" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="false" aria-controls="collapseTwo">
-                    <b>Risks</b>
-                </button>
-            </h2>
-        </div>
-        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo">
-            <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
-                moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
-                proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
-                aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header" id="headingThree">
-            <h2 class="mb-0">
-                <button class="btn btn-link text-info" type="button" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="false" aria-controls="collapseThree">
-                    <b>Requirements</b>
-                </button>
-            </h2>
-        </div>
-        <div id="collapseThree" class="collapse show" aria-labelledby="headingThree">
-            <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
-                moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
-                proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
-                aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-            </div>
-        </div>
-    </div>
+<div class="accordion m-2" *ngIf="project">
+    <app-project-requirements [projectId]="projectId"></app-project-requirements>
+    <app-project-risks [projectId]="projectId"></app-project-risks>
+    <app-project-meta [project]="project"></app-project-meta>
 </div>

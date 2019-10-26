@@ -20,7 +20,7 @@ export class AddEditProjectComponent implements OnInit, OnDestroy {
   ROUTES = ROUTES;
   faArrowCircleLeft = faArrowCircleLeft;
   usersList: User[];
-  userSubscription: Subscription;
+  projectSubscription: Subscription;
   message = '';
   projectId: string;
 
@@ -41,15 +41,52 @@ export class AddEditProjectComponent implements OnInit, OnDestroy {
     private toastService: ToastService,
     private spinnerService: SpinnerService,
     private projectService: ProjectService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.userSubscription = this.userService.getAll().subscribe(users => this.usersList = users);
+    this.projectId = this.route.snapshot.paramMap.get("projectId");
+    this.initProjectForm();
+  }
+
+  async initProjectForm() {
+    this.spinnerService.show();
+    this.usersList = await this.userService.getAllPromise();
+
+    if (this.projectId) {
+      this.projectSubscription = this.projectService.getById(this.projectId).subscribe(projectObj => {
+        this.projectForm.controls.name.setValue(projectObj.name);
+        this.projectForm.controls.description.setValue(projectObj.description);
+        this.projectForm.controls.owner.setValue(this.usersList.find(user => user.id === projectObj.owner.id));
+        let teamMembers: User[] = [];
+        for (const teamMember of projectObj.teamMembers) {
+          const found = this.usersList.find(user => user.id === teamMember.id);
+          if (found) {
+            teamMembers.push(found);
+          }
+        }
+        this.projectForm.controls.teamMembers.setValue(teamMembers);
+      });
+    }
+    this.spinnerService.hide();
   }
 
   ngOnDestroy() {
-    this.userSubscription.unsubscribe();
+    if (this.projectSubscription) {
+      this.projectSubscription.unsubscribe();
+    }
+  }
+  async onDelete() {
+    this.spinnerService.show();
+    try {
+      await this.projectService.delete(this.projectId);
+    } catch (error) {
+      this.message = 'Failed to delete Project';
+    }
+    this.spinnerService.hide();
+    this.toastService.show('Project delete successfully !!!');
+    this.router.navigate([ROUTES.DASHBOARD_ROUTE]);
   }
 
   async onSubmit() {
@@ -65,7 +102,8 @@ export class AddEditProjectComponent implements OnInit, OnDestroy {
         );
         await this.projectService.addEdit(projectObj, this.projectId);
         this.toastService.show('Project data saved successfully !!!');
-        this.router.navigate([ROUTES.DASHBOARD_ROUTE]);
+        this.router.navigate([this.projectId ?
+          ROUTES.PROJECT_DETAILS_ROUTE.replace(':projectId', this.projectId) : ROUTES.DASHBOARD_ROUTE]);
       } catch (error) {
         console.log('error = ', error);
         this.message = 'Failed to save project data';

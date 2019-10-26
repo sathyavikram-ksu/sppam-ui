@@ -25,4 +25,8 @@ export class ProjectService {
   getById(projectId: string): Observable<Project> {
     return this.http.get<Project>(getUrl('project/' + projectId));
   }
+
+  delete(projectId: string) {
+    return this.http.delete(getUrl('project/') + projectId).toPromise();
+  }
 }

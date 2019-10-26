@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faArrowCircleLeft, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import * as ROUTES from '../../../helpers/routes';
-import { ProjectService } from '../../../services/project.service';
 import { Project } from 'src/app/models/project';
+import { ProjectService } from '../../../services/project.service';
 
 @Component({
   selector: 'app-project-details',
@@ -13,21 +13,15 @@ import { Project } from 'src/app/models/project';
 export class ProjectDetailsComponent implements OnInit {
   ROUTES = ROUTES;
   faArrowCircleLeft = faArrowCircleLeft;
-  faEdit = faEdit;
-  
   projectId: string;
   project: Project;
 
-  constructor(private projectService: ProjectService,
-    private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private projectService: ProjectService) { }
 
   ngOnInit() {
     this.projectId = this.route.snapshot.paramMap.get("projectId");
-    if (this.projectId) {
-      this.projectService.getById(this.projectId).subscribe(project => {
-        this.project = project;
-      });
-    }
+    this.projectService.getById(this.projectId).subscribe(project => {
+      this.project = project;
+    });
   }
-
 }

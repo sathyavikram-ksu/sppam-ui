@@ -16,6 +16,9 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
 import { AddEditUserComponent } from './components/user/add-edit-user/add-edit-user.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { ProjectDetailsComponent } from './components/project/project-details/project-details.component';
+import { ProjectMetaComponent } from './components/project/project-details/project-meta/project-meta.component';
+import { ProjectRisksComponent } from './components/project/project-details/project-risks/project-risks.component';
+import { ProjectRequirementsComponent } from './components/project/project-details/project-requirements/project-requirements.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { ProjectDetailsComponent } from './components/project/project-details/pr
     UserListComponent,
     AddEditUserComponent,
     ToastComponent,
-    ProjectDetailsComponent
+    ProjectDetailsComponent,
+    ProjectMetaComponent,
+    ProjectRisksComponent,
+    ProjectRequirementsComponent
   ],
   imports: [
     BrowserModule,

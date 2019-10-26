@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-info">
-    <a class="btn bg-warning mr-3" href="{{ROUTES.DASHBOARD_ROUTE}}">
+    <a class="btn bg-warning mr-3"
+        href="{{projectId?ROUTES.PROJECT_DETAILS_ROUTE.replace(':projectId',projectId):ROUTES.DASHBOARD_ROUTE}}">
         <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
     </a>
     <div class="navbar-brand">Edit Project Details</div>

@@ -19,6 +19,10 @@ export class UserService {
     localStorage.setItem(ACCESS_TOKEN, response.accessToken);
   }
 
+  getAllPromise(): Promise<User[]> {
+    return this.http.get<User[]>(getUrl('user')).toPromise();
+  }
+
   getAll(): Observable<User[]> {
     return this.http.get<User[]>(getUrl('user'));
   }
