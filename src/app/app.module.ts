@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule, MatNativeDateModule, MatSelectModule } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +19,8 @@ import { ProjectDetailsComponent } from './components/project/project-details/pr
 import { ProjectMetaComponent } from './components/project/project-details/project-meta/project-meta.component';
 import { ProjectRisksComponent } from './components/project/project-details/project-risks/project-risks.component';
 import { ProjectRequirementsComponent } from './components/project/project-details/project-requirements/project-requirements.component';
+import { RequirementListComponent } from './components/requirement/requirement-list/requirement-list.component';
+import { EffortDetailsComponent } from './components/requirement/effort-details/effort-details.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { ProjectRequirementsComponent } from './components/project/project-detai
     ProjectDetailsComponent,
     ProjectMetaComponent,
     ProjectRisksComponent,
-    ProjectRequirementsComponent
+    ProjectRequirementsComponent,
+    RequirementListComponent,
+    EffortDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,9 @@ import { ProjectRequirementsComponent } from './components/project/project-detai
     ReactiveFormsModule,
     HttpClientModule,
     MatSelectModule,
-    FontAwesomeModule
+    MatDatepickerModule,
+    FontAwesomeModule,
+    MatNativeDateModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

@@ -1,0 +1,167 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-info">
+    <a class="btn bg-warning mr-3" href="{{ROUTES.PROJECT_DETAILS_ROUTE.replace(':projectId',projectId)}}">
+        <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+    </a>
+    <div class="navbar-brand">Effort Monitoring and Tracking</div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <button (click)="initEffortForm()" class="btn btn-warning float-md-right" data-toggle="modal"
+                data-target="#addEditEffortModal">
+                <fa-icon [icon]="faPlusSquare"></fa-icon> Add New Effort
+            </button>
+        </form>
+    </div>
+</nav>
+<div *ngIf="requirement">
+    <div [className]="requirement.type =='FUNCTIONAL' ? 'alert alert-success' : 'alert alert-primary'" role="alert">
+        <p>{{requirement.description}}</p>
+        <div class="font-weight-bolder">TOTAL: </div>
+        <div class="font-weight-bolder">Requirements Analysis - 40 hrs</div>
+        <div class="font-weight-bolder">Designing - 40 hrs</div>
+        <div class="font-weight-bolder">Coding - 40 hrs</div>
+        <div class="font-weight-bolder">Testing - 40 hrs</div>
+        <div class="font-weight-bolder">Project Management - 40 hrs</div>
+    </div>
+    <div class="row m-2">
+        <div class="alert alert-info m-2" role="alert" *ngIf="(efforts$ | async)?.length==0">
+            There is no effort associated for this requirement.
+        </div>
+        <table class="table table-hover table-sm" *ngIf="(efforts$ | async)?.length>0">
+            <thead>
+                <tr class="d-flex">
+                    <th class="col-1" scope="col">#</th>
+                    <th class="col-2" scope="col">From Date</th>
+                    <th class="col-2" scope="col">To Date</th>
+                    <th class="col-1" scope="col">Requirements Analysis</th>
+                    <th class="col-1" scope="col">Designing</th>
+                    <th class="col-1" scope="col">Coding</th>
+                    <th class="col-1" scope="col">Testing</th>
+                    <th class="col-1" scope="col">Project Management</th>
+                    <th class="col-2" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="d-flex" *ngFor="let effort of (efforts$ | async); let i = index">
+                    <td class="col-1" scope="row">{{i+1}}</td>
+                    <td class="col-2">{{effort.fromDate | date}}</td>
+                    <td class="col-2">{{effort.toDate | date}}</td>
+                    <td class="col-1">{{effort.reqAnalysisHrs}}</td>
+                    <td class="col-1">{{effort.designingHrs}}</td>
+                    <td class="col-1">{{effort.codingHrs}}</td>
+                    <td class="col-1">{{effort.testingHrs}}</td>
+                    <td class="col-1">{{effort.projectManagementHrs}}</td>
+                    <td class="col-2">{{effort.projectManagementHrs}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add/Edit Effort Modal -->
+<div class="modal fade" id="addEditEffortModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Effort Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="effortForm">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold">From Date</label>
+                        <div class="col-sm-4">
+                            <div class="input-group mb-2 mr-sm-2">
+                                <input type="date" formControlName="fromDate" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold">To Date</label>
+                        <div class="col-sm-4">
+                            <div class="input-group mb-2 mr-sm-2">
+                                <input type="date" formControlName="toDate" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold">Requirement Analysis</label>
+                        <div class="col-sm-4">
+                            <div class="input-group mb-2 mr-sm-2">
+                                <input type="number" formControlName="reqAnalysisHrs" class="form-control">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Hrs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold">Designing</label>
+                        <div class="col-sm-4">
+                            <div class="input-group mb-2 mr-sm-2">
+                                <input type="number" formControlName="designingHrs" class="form-control">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Hrs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold">Coding</label>
+                        <div class="col-sm-4">
+                            <div class="input-group mb-2 mr-sm-2">
+                                <input type="number" formControlName="codingHrs" class="form-control">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Hrs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold">Testing</label>
+                        <div class="col-sm-4">
+                            <div class="input-group mb-2 mr-sm-2">
+                                <input type="number" formControlName="testingHrs" class="form-control">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Hrs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-bold">Project Management</label>
+                        <div class="col-sm-4">
+                            <div class="input-group mb-2 mr-sm-2">
+                                <input type="number" formControlName="projectManagementHrs" class="form-control">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Hrs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="message && message.length>0">
+                        {{message}}
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button (click)="onSubmit()" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

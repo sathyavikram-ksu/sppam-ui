@@ -17,15 +17,15 @@
 </nav>
 <div class="m-3">
     <div class="row">
-        <div class="col-sm-4 col-md-3 mb-3" *ngFor="let project of (projects$ | async)">
-            <div class="card">
+        <div class="col-md-4 col-lg-3 mb-2" *ngFor="let project of (projects$ | async)">
+            <a href="{{ROUTES.PROJECT_DETAILS_ROUTE.replace(':projectId',project.id)}}"
+                class="card h-100 stretched-link link-card">
                 <h5 class="card-header">{{project.name}}</h5>
                 <div class="card-body">
-                    <p class="card-text">{{project.description}}</p>
-                    <a href="{{ROUTES.PROJECT_DETAILS_ROUTE.replace(':projectId',project.id)}}"
-                        class="stretched-link"></a>
+                    <p *ngIf="project.description" class="card-text">{{project.description.substring(0, 200)}}
+                        {{project.description.length>200?'...':''}}</p>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
     <div class="alert alert-danger" role="alert" *ngIf="(hasError$ | async)">

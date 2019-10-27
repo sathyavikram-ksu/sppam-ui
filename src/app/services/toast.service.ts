@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-export type ToastType = 'secondary' | 'danger';
+export type ToastType = 'secondary' | 'danger' | 'success';
 
 export interface ToastConfig {
   isShow?: boolean;
@@ -16,13 +16,13 @@ export class ToastService {
   private _showToastSubject: BehaviorSubject<ToastConfig> = new BehaviorSubject({
     isShow: false,
     message: '',
-    type: 'secondary'
+    type: 'success'
   });
   private readonly _showToastObservable: Observable<ToastConfig> = this._showToastSubject.asObservable();
 
   constructor() { }
 
-  show(nessage: string, toastType: ToastType = 'secondary') {
+  show(nessage: string, toastType: ToastType = 'success') {
     this._showToastSubject.next({
       isShow: true,
       message: nessage,

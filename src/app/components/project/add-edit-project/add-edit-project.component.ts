@@ -100,10 +100,9 @@ export class AddEditProjectComponent implements OnInit, OnDestroy {
           this.projectForm.controls.owner.value,
           this.projectForm.controls.teamMembers.value,
         );
-        await this.projectService.addEdit(projectObj, this.projectId);
+        const projectResp = await this.projectService.addEdit(projectObj, this.projectId);
         this.toastService.show('Project data saved successfully !!!');
-        this.router.navigate([this.projectId ?
-          ROUTES.PROJECT_DETAILS_ROUTE.replace(':projectId', this.projectId) : ROUTES.DASHBOARD_ROUTE]);
+        this.router.navigate([ROUTES.PROJECT_DETAILS_ROUTE.replace(':projectId', this.projectId || '' + projectResp.id)]);
       } catch (error) {
         console.log('error = ', error);
         this.message = 'Failed to save project data';

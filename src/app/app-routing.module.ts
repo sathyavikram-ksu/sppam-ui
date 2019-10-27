@@ -6,6 +6,7 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
 import { AddEditUserComponent } from './components/user/add-edit-user/add-edit-user.component';
 import { AddEditProjectComponent } from './components/project/add-edit-project/add-edit-project.component';
 import { ProjectDetailsComponent } from './components/project/project-details/project-details.component';
+import { EffortDetailsComponent } from './components/requirement/effort-details/effort-details.component';
 
 import * as ROUTES from './helpers/routes';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: ROUTES.ADD_PROJECT_ROUTE, component: AddEditProjectComponent },
   { path: ROUTES.EDIT_PROJECT_ROUTE, component: AddEditProjectComponent },
   { path: ROUTES.PROJECT_DETAILS_ROUTE, component: ProjectDetailsComponent },
+  { path: ROUTES.EFFORT_DETAILS_ROUTE, component: EffortDetailsComponent },
 ];
 
 @NgModule({

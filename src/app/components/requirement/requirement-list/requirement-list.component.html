@@ -1,0 +1,74 @@
+<div class="card-body" style="padding: 0px;">
+    <div class="alert alert-info m-2" role="alert" *ngIf="(requirements$ | async)?.length==0">
+        There are no requirements associated for this project.
+    </div>
+    <div class="row m-2">
+        <div class="col-md-4 col-lg-3 mb-2" *ngFor="let requirement of (requirements$ | async)">
+            <div
+                [className]="requirement.type =='FUNCTIONAL' ? 'card h-100 border-success' : 'card h-100 border-primary'">
+                <a href="{{ROUTES.EFFORT_DETAILS_ROUTE.replace(':projectId',projectId).replace(':reqId',requirement.id)}}" class="card-body link-card">
+                    <p *ngIf="requirement.description" class="card-text">
+                        {{requirement.description.substring(0, 200)}}
+                        {{requirement.description.length>200?'...':''}}
+                    </p>
+                </a>
+                <div class="card-footer">
+                    <a class="btn"
+                        href="{{ROUTES.EFFORT_DETAILS_ROUTE.replace(':projectId',projectId).replace(':reqId',requirement.id)}}">
+                        <fa-icon class="m-1" [icon]="faEye"></fa-icon>
+                    </a>
+                    <button (click)="initRequirementForm(requirement)" class="btn" data-toggle="modal"
+                        data-target="#addEditRequirementModal">
+                        <fa-icon class="m-1" [icon]="faEdit"></fa-icon>
+                    </button>
+                    <button class="btn" (click)="onDelete(requirement.id)">
+                        <fa-icon class="m-1" [icon]="faTrashAlt"></fa-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Requirement Modal -->
+<div class="modal fade" id="addEditRequirementModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Requirement Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="requirementForm">
+                    <div class="form-group row">
+                        <label for="staticDescription"
+                            class="col-sm-2 col-form-label font-weight-bold">Description</label>
+                        <div class="col-sm-10">
+                            <textarea formControlName="description" type="text" class="form-control"
+                                id="staticDescription"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="staticType" class="col-sm-2 col-form-label font-weight-bold">
+                            Type
+                        </label>
+                        <div class="col-sm-10">
+                            <select formControlName="type" class="form-control" id="staticType">
+                                <option value="FUNCTIONAL"> FUNCTIONAL </option>
+                                <option value="NONFUNCTIONAL"> NON-FUNCTIONAL </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="message && message.length>0">
+                        {{message}}
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button (click)="onSubmit()" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
