@@ -10,6 +10,7 @@ import { Effort } from '../../../models/effort';
 import * as ROUTES from '../../../helpers/routes';
 import { SpinnerService } from '../../../services/spinner.service';
 import { ToastService } from '../../../services/toast.service';
+import { count } from 'rxjs/operators';
 
 @Component({
   selector: 'app-effort-details',
@@ -54,13 +55,35 @@ export class EffortDetailsComponent implements OnInit {
 
   initEffortForm(effortObj: Effort) {
     this.effortForm.controls.id.setValue(effortObj ? effortObj.id : null);
-    this.effortForm.controls.fromDate.setValue(effortObj ? effortObj.fromDate : '');
-    this.effortForm.controls.toDate.setValue(effortObj ? effortObj.toDate : '');
-    this.effortForm.controls.reqAnalysisHrs.setValue(effortObj ? effortObj.reqAnalysisHrs : '');
-    this.effortForm.controls.designingHrs.setValue(effortObj ? effortObj.designingHrs : '');
-    this.effortForm.controls.codingHrs.setValue(effortObj ? effortObj.codingHrs : '');
-    this.effortForm.controls.testingHrs.setValue(effortObj ? effortObj.testingHrs : '');
-    this.effortForm.controls.projectManagementHrs.setValue(effortObj ? effortObj.projectManagementHrs : '');
+    this.effortForm.controls.fromDate.setValue(effortObj ? effortObj.fromDate : new Date());
+    this.effortForm.controls.toDate.setValue(effortObj ? effortObj.toDate : new Date());
+    this.effortForm.controls.reqAnalysisHrs.setValue(effortObj ? effortObj.reqAnalysisHrs : 0);
+    this.effortForm.controls.designingHrs.setValue(effortObj ? effortObj.designingHrs : 0);
+    this.effortForm.controls.codingHrs.setValue(effortObj ? effortObj.codingHrs : 0);
+    this.effortForm.controls.testingHrs.setValue(effortObj ? effortObj.testingHrs : 0);
+    this.effortForm.controls.projectManagementHrs.setValue(effortObj ? effortObj.projectManagementHrs : 0);
+  }
+
+  getCount(effortList: Effort[], key: string) {
+    let effortCount = 0;
+    if (effortList && effortList.length > 0) {
+      effortCount = effortList.reduce((accumulator: number, currentValue: Effort) => {
+        return accumulator + currentValue[key];
+      }, 0)
+    }
+    return effortCount;
+  }
+
+  async onDelete(effortId: string) {
+    this.spinnerService.show();
+    try {
+      await this.effortService.delete(effortId);
+      this.toastService.show('Effort delete successfully !!!');
+      this.efforts$ = this.effortService.getByRequirement(this.reqId);
+    } catch (error) {
+      this.message = 'Failed to delete Effort';
+    }
+    this.spinnerService.hide();
   }
 
   async onSubmit() {

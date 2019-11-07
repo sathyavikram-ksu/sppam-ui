@@ -20,21 +20,64 @@
         </form>
     </div>
 </nav>
-<div *ngIf="requirement">
-    <div [className]="requirement.type =='FUNCTIONAL' ? 'alert alert-success' : 'alert alert-primary'" role="alert">
-        <p>{{requirement.description}}</p>
-        <div class="font-weight-bolder">TOTAL: </div>
-        <div class="font-weight-bolder">Requirements Analysis - 40 hrs</div>
-        <div class="font-weight-bolder">Designing - 40 hrs</div>
-        <div class="font-weight-bolder">Coding - 40 hrs</div>
-        <div class="font-weight-bolder">Testing - 40 hrs</div>
-        <div class="font-weight-bolder">Project Management - 40 hrs</div>
+<div *ngIf="requirement" class="m-2">
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table table-striped table-hover">
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <b>Requirements Analysis</b>
+                        </th>
+                        <th scope="row">
+                            <b>{{getCount((efforts$ | async),'reqAnalysisHrs')}} hrs</b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <b> Designing</b>
+                        </th>
+                        <th scope="row">
+                            <b> {{getCount((efforts$ | async),'designingHrs')}} hrs</b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <b> Coding</b>
+                        </th>
+                        <th scope="row">
+                            <b>{{getCount((efforts$ | async),'codingHrs')}} hrs</b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <b> Testing</b>
+                        </th>
+                        <th scope="row">
+                            <b> {{getCount((efforts$ | async),'testingHrs')}} hrs</b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <b> Project Management</b>
+                        </th>
+                        <th scope="row">
+                            <b>{{getCount((efforts$ | async),'projectManagementHrs')}} hrs</b>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-8">
+            <p><b>Description</b> - {{requirement.description}}</p>
+            <p><b>Type</b> - {{requirement.type}}</p>
+        </div>
     </div>
     <div class="row m-2">
         <div class="alert alert-info m-2" role="alert" *ngIf="(efforts$ | async)?.length==0">
             There is no effort associated for this requirement.
         </div>
-        <table class="table table-hover table-sm" *ngIf="(efforts$ | async)?.length>0">
+        <table class="table table-hover" *ngIf="(efforts$ | async)?.length>0">
             <thead>
                 <tr class="d-flex">
                     <th class="col-1" scope="col">#</th>
@@ -58,7 +101,11 @@
                     <td class="col-1">{{effort.codingHrs}}</td>
                     <td class="col-1">{{effort.testingHrs}}</td>
                     <td class="col-1">{{effort.projectManagementHrs}}</td>
-                    <td class="col-2">{{effort.projectManagementHrs}}</td>
+                    <td class="col-2">
+                        <button (click)="onDelete(effort.id)" class="btn">
+                            <fa-icon [icon]="faTrashAlt"></fa-icon>
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -81,7 +128,9 @@
                         <label class="col-sm-4 col-form-label font-weight-bold">From Date</label>
                         <div class="col-sm-4">
                             <div class="input-group mb-2 mr-sm-2">
-                                <input type="date" formControlName="fromDate" class="form-control">
+                                <input formControlName="fromDate" [matDatepicker]="fromDatepicker" class="form-control">
+                                <mat-datepicker-toggle [for]="fromDatepicker"></mat-datepicker-toggle>
+                                <mat-datepicker #fromDatepicker></mat-datepicker>
                             </div>
                         </div>
                     </div>
@@ -90,7 +139,9 @@
                         <label class="col-sm-4 col-form-label font-weight-bold">To Date</label>
                         <div class="col-sm-4">
                             <div class="input-group mb-2 mr-sm-2">
-                                <input type="date" formControlName="toDate" class="form-control">
+                                <input formControlName="toDate" [matDatepicker]="toDatepicker" class="form-control">
+                                <mat-datepicker-toggle [for]="toDatepicker"></mat-datepicker-toggle>
+                                <mat-datepicker #toDatepicker></mat-datepicker>
                             </div>
                         </div>
                     </div>
