@@ -10,7 +10,7 @@ import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 export class ProjectRequirementsComponent implements OnInit {
   @Input() projectId: number;
   faPlusSquare = faPlusSquare;
-  private addEventSubject: Subject<void> = new Subject<void>();
+  addEventSubject: Subject<void> = new Subject<void>();
 
   constructor() { }
 

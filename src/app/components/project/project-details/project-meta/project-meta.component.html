@@ -6,7 +6,7 @@
                 <b>PROJECT DETAILS</b>
             </button>
             <a class="btn btn-warning float-md-right"
-                href="{{ROUTES.EDIT_PROJECT_ROUTE.replace(':projectId',project.id)}}">
+                href="{{ROUTES.EDIT_PROJECT_ROUTE.replace(':projectId',''+project.id)}}">
                 <fa-icon [icon]="faEdit"></fa-icon> Edit Project Details
             </a>
         </h2>

@@ -10,7 +10,7 @@ import { ACCESS_TOKEN } from '../helpers/helpers';
 @Injectable({
   providedIn: 'root'
 })
-class AuthInterceptorService implements HttpInterceptor {
+export class AuthInterceptorService implements HttpInterceptor {
 
   constructor() { }
 
