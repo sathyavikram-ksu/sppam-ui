@@ -79,29 +79,29 @@
         </div>
         <table class="table table-hover" *ngIf="(efforts$ | async)?.length>0">
             <thead>
-                <tr class="d-flex">
-                    <th class="col-1" scope="col">#</th>
-                    <th class="col-2" scope="col">From Date</th>
-                    <th class="col-2" scope="col">To Date</th>
-                    <th class="col-1" scope="col">Requirements Analysis</th>
-                    <th class="col-1" scope="col">Designing</th>
-                    <th class="col-1" scope="col">Coding</th>
-                    <th class="col-1" scope="col">Testing</th>
-                    <th class="col-1" scope="col">Project Management</th>
-                    <th class="col-2" scope="col">Actions</th>
+                <tr>
+                    <th class="col-1 cell-5" scope="col">#</th>
+                    <th class="col-2 cell-20" scope="col">From Date</th>
+                    <th class="col-2 cell-20" scope="col">To Date</th>
+                    <th class="col-1 cell-10" scope="col">Requirements Analysis</th>
+                    <th class="col-1 cell-10" scope="col">Designing</th>
+                    <th class="col-1 cell-10" scope="col">Coding</th>
+                    <th class="col-1 cell-10" scope="col">Testing</th>
+                    <th class="col-1 cell-10" scope="col">Project Management</th>
+                    <th class="col-2 cell-5" scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="d-flex" *ngFor="let effort of (efforts$ | async); let i = index">
-                    <td class="col-1" scope="row">{{i+1}}</td>
-                    <td class="col-2">{{effort.fromDate | date}}</td>
-                    <td class="col-2">{{effort.toDate | date}}</td>
-                    <td class="col-1">{{effort.reqAnalysisHrs}}</td>
-                    <td class="col-1">{{effort.designingHrs}}</td>
-                    <td class="col-1">{{effort.codingHrs}}</td>
-                    <td class="col-1">{{effort.testingHrs}}</td>
-                    <td class="col-1">{{effort.projectManagementHrs}}</td>
-                    <td class="col-2">
+                <tr *ngFor="let effort of (efforts$ | async); let i = index">
+                    <td class="col-1 cell-5" scope="row">{{i+1}}</td>
+                    <td class="col-2 cell-20" scope="row">{{effort.fromDate | date}}</td>
+                    <td class="col-2 cell-20" scope="row">{{effort.toDate | date}}</td>
+                    <td class="col-1 cell-10" scope="row">{{effort.reqAnalysisHrs}}</td>
+                    <td class="col-1 cell-10" scope="row">{{effort.designingHrs}}</td>
+                    <td class="col-1 cell-10" scope="row">{{effort.codingHrs}}</td>
+                    <td class="col-1 cell-10" scope="row">{{effort.testingHrs}}</td>
+                    <td class="col-1 cell-10" scope="row">{{effort.projectManagementHrs}}</td>
+                    <td class="col-2 cell-5" scope="row">
                         <button (click)="onDelete(effort.id)" class="btn">
                             <fa-icon [icon]="faTrashAlt"></fa-icon>
                         </button>

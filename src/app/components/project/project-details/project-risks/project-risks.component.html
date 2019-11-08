@@ -15,23 +15,23 @@
             <div class="alert alert-info m-2" role="alert" *ngIf="(risks$ | async)?.length==0">
                 There are no risks associated for this project.
             </div>
-            <table class="table table-hover table-sm" *ngIf="(risks$ | async)?.length>0">
+            <table class="table table-hover" *ngIf="(risks$ | async)?.length>0">
                 <thead>
-                    <tr class="d-flex">
-                        <th class="col-1" scope="col">#</th>
-                        <th class="col-6" scope="col">Description</th>
-                        <th class="col-2" scope="col">Status</th>
-                        <th class="col-2" scope="col">Risk Type</th>
-                        <th class="col-1" scope="col">Action</th>
+                    <tr>
+                        <th style="width: 10%;" class="col-1" scope="col">#</th>
+                        <th style="width: 60%;" class="col-6" scope="col">Description</th>
+                        <th style="width: 10%;" class="col-2" scope="col">Status</th>
+                        <th style="width: 10%;" class="col-2" scope="col">Risk Type</th>
+                        <th style="width: 10%;" class="col-1" scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="d-flex" *ngFor="let risk of (risks$ | async); let i = index">
-                        <td class="col-1" scope="row">{{i+1}}</td>
-                        <td class="col-6">{{risk.description}}</td>
-                        <td class="col-2">{{risk.status}}</td>
-                        <td class="col-2">{{risk.type}}</td>
-                        <td class="col-1">
+                    <tr *ngFor="let risk of (risks$ | async); let i = index">
+                        <td style="width: 10%;" class="col-1" scope="row">{{i+1}}</td>
+                        <td style="width: 60%;" class="col-6" scope="row">{{risk.description}}</td>
+                        <td style="width: 10%;" class="col-2" scope="row">{{risk.status=="INPROGRESS"?"IN PROGRESS":risk.status}}</td>
+                        <td style="width: 10%;" class="col-2" scope="row">{{risk.type}}</td>
+                        <td style="width: 10%;" class="col-1" scope="row">
                             <button (click)="initRiskForm(risk)" class="btn" data-toggle="modal"
                                 data-target="#addEditRiskModal">
                                 <fa-icon class="m-1" [icon]="faEdit"></fa-icon>
@@ -87,7 +87,7 @@
                         <div class="col-sm-10">
                             <select formControlName="status" class="form-control" id="staticStatus">
                                 <option value="OPEN"> OPEN </option>
-                                <option value="INPROGRESS"> INPROGRESS </option>
+                                <option value="INPROGRESS"> IN PROGRESS </option>
                                 <option value="CLOSE"> CLOSE </option>
                             </select>
                         </div>

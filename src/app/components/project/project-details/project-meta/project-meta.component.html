@@ -36,8 +36,8 @@
             <div class="form-group row">
                 <label for="staticTeamMembers" class="col-sm-2 col-form-label font-weight-bolder">Team Members</label>
                 <div class="col-sm-10">
-                    <span *ngFor="let teamMember of project?.teamMembers">
-                        {{teamMember?.name}},
+                    <span *ngFor="let teamMember of project?.teamMembers; let i = index">
+                        <span>{{teamMember?.name}}</span><span class="mr-1" *ngIf="i<project.teamMembers.length-1">,</span>
                     </span>
                 </div>
             </div>
